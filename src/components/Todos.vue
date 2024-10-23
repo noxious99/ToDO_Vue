@@ -2,9 +2,6 @@
   <div>
     <div v-if="isLoading">Loading...</div>
     <ul v-else>
-      {{
-        todos
-      }}
       <li
         class="flex justify-between bg-slate-200 border-2 border-black mb-2 p-4 rounded-md min-w-600"
         v-for="todo in todoList"
@@ -51,7 +48,6 @@ export default {
       type: String,
     },
   },
-
   computed: {
     todoList() {
       if (this.todos) {

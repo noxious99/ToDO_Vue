@@ -52,7 +52,7 @@ export default {
       const newId = Date.now() % 10;
       const newTask = {
         ...this.form,
-        id: newId,
+        id: newId + 1,
       };
       this.$store.dispatch("addTodo", newTask);
       this.form.title = "";
