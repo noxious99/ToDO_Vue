@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       isLoading: false,
-      todos: [],
+      todos: this.$store.state.todos,
       value: "",
     };
   },
@@ -68,7 +68,7 @@ export default {
         const res = await axios.get(
           "https://jsonplaceholder.typicode.com/todos?_start=0&_limit=10"
         );
-        this.todos = res.data;
+        this.todos = [...res.data];
         this.isLoading = false;
       } catch (error) {
         console.log(error);
