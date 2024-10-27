@@ -11,7 +11,7 @@
             />
             <span
               class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
-              >Flowbite</span
+              >Brick Line</span
             >
           </a>
         </div>
@@ -25,7 +25,7 @@
             <ul class="text-gray-500 dark:text-gray-400 font-medium">
               <li class="mb-4">
                 <a href="https://flowbite.com/" class="hover:underline"
-                  >Flowbite</a
+                  >Brick Line</a
                 >
               </li>
               <li>
@@ -79,8 +79,8 @@
       <div class="sm:flex sm:items-center sm:justify-between">
         <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
           >© 2023
-          <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>.
-          All Rights Reserved.
+          <a href="https://flowbite.com/" class="hover:underline">BrickLine™</a
+          >. All Rights Reserved.
         </span>
         <div class="flex mt-4 sm:justify-center sm:mt-0">
           <a

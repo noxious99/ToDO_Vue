@@ -29,11 +29,35 @@
         </div>
       </li>
     </ul>
+
+    <!-- //// pagination-starts //// -->
+    <button
+      @click="prevPage"
+      class="inline-block py-3 px-4 font-medium text-white bg-slate-600 rounded-lg shadow-md mx-2"
+    >
+      Prev
+    </button>
+    <div v-for="currentPage in currentPage + 5" class="flex flex-row">
+      <button
+        @click="pagination(currentPage - 1)"
+        class="py-3 px-5 font-medium text-white bg-slate-600 rounded-xl shadow-md mx-2"
+      >
+        {{ currentPage }}
+      </button>
+    </div>
+    <button
+      @click="nextPage"
+      class="inline-block py-3 px-4 font-medium text-white bg-slate-600 rounded-lg shadow-md mx-2"
+    >
+      Next
+    </button>
+    <!-- //// pagination-ends //// -->
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import { computed } from "vue";
 
 export default {
   data() {
@@ -41,6 +65,12 @@ export default {
       isLoading: false,
       todos: this.$store.state.todos,
       value: "",
+      page: 0,
+      limit: 10,
+      totalItem: 0,
+      totalPage: 0,
+      currentPage: 0,
+      endIdx: 0,
     };
   },
   props: {
@@ -62,25 +92,51 @@ export default {
     },
   },
   methods: {
-    async fetchData() {
+    pagination(idx) {
+      this.page = idx;
+      console.log(`thisPage ${this.page}`);
+      this.fetchData(this.page * this.limit, this.limit);
+    },
+    nextPage() {
+      this.currentPage++;
+      this.endIdx++;
+      console.log(this.currentPage);
+    },
+    prevPage() {
+      this.currentPage--;
+      this.endIdx--;
+      console.log(this.currentPage);
+    },
+    async totalPageCount() {
+      const res = await axios.get("https://jsonplaceholder.typicode.com/todos");
+      this.totalItem = res.data.length;
+      this.totalPage = this.totalItem / 10;
+      console.log(this.totalPage);
+    },
+    async fetchData(page, limit) {
       try {
         this.isLoading = true;
         const res = await axios.get(
-          "https://jsonplaceholder.typicode.com/todos?_start=0&_limit=10"
+          `https://jsonplaceholder.typicode.com/todos?_start=${page}&_limit=${limit}`
         );
-        this.todos = [...res.data];
+        (this.todos = []),
+          (this.todos = this.$store.state.todos),
+          (this.todos = [...res.data]);
         this.isLoading = false;
       } catch (error) {
         console.log(error);
         this.isLoading = false;
       }
     },
+
     donePost(id, completed) {
       console.log(`Task ${id} completed status: ${completed}`);
     },
   },
   mounted() {
     this.fetchData();
+    this.totalPageCount();
+    this.pagination();
   },
 };
 </script>
