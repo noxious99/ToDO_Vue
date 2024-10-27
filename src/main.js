@@ -5,11 +5,6 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import './index.css'
 
-
-
-
-
-
 createApp(App)
 .use(Router)
 .use(store)
